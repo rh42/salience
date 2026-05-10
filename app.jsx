@@ -785,7 +785,7 @@ function SingleResult({ regionKey, answers, sawFlash }) {
             <div>
               <p>
                 The word “noticed” appeared on screen for 200&thinsp;ms during the moving dot. That timing comes from real amygdala work on signals your eyes miss but your limbic system doesn’t.
-                Here it was mostly a party trick. Q8 is a vibe check, not a measure of subliminal threat detection.
+                Here it was mostly a party trick.
               </p>
             
             </div>
