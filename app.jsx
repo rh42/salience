@@ -711,15 +711,11 @@ function SingleResult({ regionKey, answers, sawFlash }) {
           </div>
           <h1 className="result-region">
             <span className="nb">· You are the ·</span>
-            <span className="pop" style={{ fontFamily: "Newsreader" }}>
-              {r.name.split(" ")[0]}
-            </span>
-            {r.name.includes(" ") ? (
-              <>
-                <br />
-                {r.name.split(" ").slice(1).join(" ")}
-              </>
-            ) : null}
+            
+          <span className="pop" style={{ fontFamily: "Newsreader" }}>
+            {r.name}
+          </span>
+            
           </h1>
         </div>
       </div>
@@ -833,12 +829,15 @@ function DualResult({ aKey, bKey, answers, sawFlash }) {
           </div>
           <h1 className="result-region result-region-dual">
             <span className="nb">· You are between ·</span>
+
             <span className="pop" style={{ fontFamily: "Newsreader" }}>
-              {a.name.split(" ")[0]}
+              {a.name}
             </span>
+
             <span className="dual-and">&amp;</span>
+
             <span className="pop" style={{ fontFamily: "Newsreader" }}>
-              {b.name.split(" ")[0]}
+              {b.name}
             </span>
           </h1>
         </div>
