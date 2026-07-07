@@ -9,7 +9,7 @@
   --bg-veil: #ECEAE3;
   --ink: #15161A;
   --ink-soft: #2A2C32;
-  --meta: #787774;
+  --meta: #6C6B67;          /* muted grey — AA (≥4.5:1) on --bg for small labels */
   --rule: #1516181a;          /* hairline */
   --rule-strong: #15161833;
   --paper: #FAF9F5;           /* card surfaces, slightly lighter than bg */
@@ -66,16 +66,18 @@ body {
   content: "";
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.4;
-  mix-blend-mode: multiply;
+  opacity: 0.5;
+  /* A soft radial gradient is already smooth, so no blur() filter is needed —
+     dropping it (and mix-blend-mode) lets the browser keep each blob on its own
+     compositor layer and animate transform without repainting every frame. */
+  will-change: transform;
 }
 .ambient::before {
   width: 70vmin;
   height: 70vmin;
   left: -20vmin;
   top: -10vmin;
-  background: radial-gradient(circle, oklch(0.55 0.07 250 / 0.15), transparent 70%);
+  background: radial-gradient(circle, oklch(0.55 0.07 250 / 0.16), transparent 70%);
   animation: drift1 32s ease-in-out infinite alternate;
 }
 .ambient::after {
@@ -83,7 +85,7 @@ body {
   height: 80vmin;
   right: -25vmin;
   bottom: -20vmin;
-  background: radial-gradient(circle, oklch(0.6 0.06 285 / 0.12), transparent 70%);
+  background: radial-gradient(circle, oklch(0.6 0.06 285 / 0.14), transparent 70%);
   animation: drift2 41s ease-in-out infinite alternate;
 }
 @keyframes drift1 {
@@ -181,6 +183,7 @@ body {
   max-width: 720px;
   margin: 0 auto;
   position: relative;
+  outline: none;          /* programmatic focus target — no ring box */
   opacity: 0;
   transform: translateY(14px);
   transition: opacity 520ms var(--ease), transform 620ms var(--ease);
@@ -1076,30 +1079,86 @@ body {
 }
 
 
-/*peer nerd corner*/
-
-/* whole block: single outline box, similar to other sections */
+/* ============================================================
+   Nerd corner — the "deeper mechanism" panel
+   ============================================================ */
 .result-peer {
-  margin-top: 28px;
-  padding: 16px 18px 14px;
+  display: block;
+  margin-top: 8px;
+  padding: 22px 24px 24px;
   border-radius: var(--r-card);
   border: 1px solid var(--rule-strong);
-  background: var(--paper);
-  /*box-shadow: var(--shadow-soft);*/
+  background: linear-gradient(180deg, var(--paper) 0%, var(--bg-veil) 100%);
+  position: relative;
+  overflow: hidden;
+}
+/* faint graph-paper texture — nerdy but quiet, fading from the top-right */
+.result-peer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, var(--rule) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
+  background-size: 22px 22px;
+  opacity: 0.6;
+  -webkit-mask-image: radial-gradient(ellipse at 88% 0%, black, transparent 68%);
+  mask-image: radial-gradient(ellipse at 88% 0%, black, transparent 68%);
+  pointer-events: none;
+}
+/* accent hairline across the top */
+.result-peer::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  opacity: 0.75;
 }
 
-/* heading row, left-aligned */
 .result-peer-head {
-  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  position: relative;
 }
-
-/* main label: mono, bigger, thin – feels like a sign */
+/* mono glyph chip — "{ }" */
+.result-peer-badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  border: 1px solid color-mix(in oklab, var(--accent) 28%, transparent);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+.result-peer-titles {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
 .result-peer-label-main {
   font-family: var(--sans);
-  font-size: 16px;
-  /*letter-spacing: 0.18em;*/
-  font-weight: 450;
-  color: var(--ink-soft);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.result-peer-sub {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--meta);
+  margin-top: 3px;
 }
 
 /* body text: readable, not code-y */
@@ -1107,13 +1166,14 @@ body {
   margin: 0;
   font-family: var(--sans);
   font-size: 16px;
-  line-height: 1.7;
+  line-height: 1.72;
   color: var(--ink-soft);
+  position: relative;
 }
 
 /* dual case: spacing between lines */
 .result-peer-lines .result-peer-body + .result-peer-body {
-  margin-top: 8px;
+  margin-top: 12px;
 }
 
 /* small labels before each line in dual */
@@ -1122,9 +1182,9 @@ body {
   font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--meta);
-  font-weight: 500;
-  margin-right: 4px;
+  color: var(--accent);
+  font-weight: 600;
+  margin-right: 6px;
 }
 
 /*.result-flash {
@@ -1312,26 +1372,23 @@ body {
 .q-next-row.has-selection .reselect-hint { opacity: 1; }
 
 /* ============================================================
-   Tweaks-specific extras
+   Reduced motion — honour the OS "reduce motion" setting globally.
+   Decorative loops (ambient drift, pulses, spins, reveals) collapse to
+   near-instant; content still appears, timed screens still advance.
    ============================================================ */
-.tweaks-jump-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* keep progressive-reveal content visible when its transition is nuked */
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .screen { opacity: 1 !important; transform: none !important; }
 }
-.tweaks-jump-row button {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 6px 8px;
-  background: var(--bg);
-  border: 1px solid var(--rule-strong);
-  border-radius: 4px;
-  cursor: pointer;
-  color: var(--ink);
-}
-.tweaks-jump-row button:hover { background: var(--paper); }
 
 /* ============================================================
    Utility
@@ -1341,17 +1398,6 @@ body {
   width: 1px; height: 1px;
   padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0,0,0,0);
-  white-space: normal; 
+  white-space: normal;
   border: 0;
-}
-
-
-/* Debug: force Tweaks panel visibility */
-.twk-panel {
-  position: fixed !important;
-  right: 16px !important;
-  bottom: 16px !important;
-  z-index: 999999 !important;
-  opacity: 1 !important;
-  transform: none !important;
 }

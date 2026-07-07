@@ -1,0 +1,17 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A salient signal">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFB48A"/>
+      <stop offset="1" stop-color="#FF8E6B"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="16" cy="16" r="16" fill="url(#bg)"/>
+
+  <!-- a salient point, ringed -->
+  <g fill="none" stroke="#FFF3E9" stroke-width="2">
+    <circle cx="16" cy="16" r="11" opacity="0.4"/>
+    <circle cx="16" cy="16" r="6.5" opacity="0.75"/>
+  </g>
+  <circle cx="16" cy="16" r="3.4" fill="#FFF3E9"/>
+</svg>

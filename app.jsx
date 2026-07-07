@@ -267,7 +267,7 @@ const CALC_STREAM = [
    ============================================================ */
 function RegionVisual({ region, size = 180 }) {
   const W = 200,H = 160;
-  const common = { width: size, height: size * (H / W), viewBox: `0 0 ${W} ${H}`, fill: "none", stroke: "currentColor", strokeWidth: 1.4, strokeLinecap: "round" };
+  const common = { width: size, height: size * (H / W), viewBox: `0 0 ${W} ${H}`, fill: "none", stroke: "currentColor", strokeWidth: 1.4, strokeLinecap: "round", "aria-hidden": true };
   switch (region) {
     case "AMYGDALA":
       // Significance detector — a salient dot among quiet ones, ringed and pulsing
@@ -430,14 +430,19 @@ function computeResult(answers) {
    ============================================================ */
 function TapCardAnswers({ options, selected, onSelect, is2x2 = true }) {
   return (
-    <div className={`answers-grid ${is2x2 && options.length === 4 ? "is-2x2" : ""}`}>
+    <div
+      className={`answers-grid ${is2x2 && options.length === 4 ? "is-2x2" : ""}`}
+      role="radiogroup"
+      aria-labelledby="active-question-prompt">
       {options.map((opt, i) =>
       <button
         key={i}
         className={`answer-card ${selected === i ? "is-selected" : ""}`}
         data-idx={String.fromCharCode(65 + i)}
+        role="radio"
+        aria-checked={selected === i}
         onClick={() => onSelect(i)}>
-        
+
           <span className="answer-text">{opt}</span>
         </button>
       )}
@@ -453,7 +458,7 @@ function PoleShape({ idx, qid = "q2" }) {
   if (qid === "q2" && idx === 0) {
     // "The looking forward" — fluttering paper streamers reaching toward something offscreen
     return (
-      <svg className="pole-shape" viewBox="0 0 130 130" fill="none" stroke="currentColor" strokeWidth="1.4">
+      <svg className="pole-shape" aria-hidden="true" viewBox="0 0 130 130" fill="none" stroke="currentColor" strokeWidth="1.4">
         <g className="anim-drift">
           <path d="M-10 110 Q 30 70, 60 80 T 130 30" />
           <path d="M-10 118 Q 32 80, 65 90 T 132 44" opacity="0.6" />
@@ -470,7 +475,7 @@ function PoleShape({ idx, qid = "q2" }) {
   if (qid === "q2" && idx === 1) {
     // "The actual thing" — a single bold dot held in place, with arcs collapsing inward
     return (
-      <svg className="pole-shape" viewBox="0 0 130 130" fill="none" stroke="currentColor" strokeWidth="1.4">
+      <svg className="pole-shape" aria-hidden="true" viewBox="0 0 130 130" fill="none" stroke="currentColor" strokeWidth="1.4">
         <g className="anim-loop">
           <circle cx="20" cy="65" r="2.2" fill="currentColor" />
           <circle cx="110" cy="65" r="2.2" fill="currentColor" />
@@ -488,7 +493,7 @@ function PoleShape({ idx, qid = "q2" }) {
   // Q7 idx 0 — "Reaching forward" — staircase of dashes climbing up-right
   if (qid === "q7" && idx === 0) {
     return (
-      <svg className="pole-shape" viewBox="0 0 130 130" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+      <svg className="pole-shape" aria-hidden="true" viewBox="0 0 130 130" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
         <g className="anim-drift">
           <path d="M10 112 L 32 112" />
           <path d="M32 92 L 54 92" opacity="0.85" />
@@ -504,7 +509,7 @@ function PoleShape({ idx, qid = "q2" }) {
   }
   // Q7 idx 1 — "Reaching back" — concentric arcs receding behind, anchor in the past
   return (
-    <svg className="pole-shape" viewBox="0 0 130 130" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+    <svg className="pole-shape" aria-hidden="true" viewBox="0 0 130 130" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
       <g className="anim-pulse">
         <path d="M115 78 A 50 50 0 0 0 15 78" />
       </g>
@@ -521,9 +526,14 @@ function PoleShape({ idx, qid = "q2" }) {
 
 function TwoPoleAnswers({ poles, selected, onSelect, qid = "q2" }) {
   return (
-    <div className="twopole">
+    <div className="twopole" role="radiogroup" aria-labelledby="active-question-prompt">
       {poles.map((p, i) =>
-      <button key={i} className={`pole ${selected === i ? "is-selected" : ""}`} onClick={() => onSelect(i)}>
+      <button
+        key={i}
+        className={`pole ${selected === i ? "is-selected" : ""}`}
+        role="radio"
+        aria-checked={selected === i}
+        onClick={() => onSelect(i)}>
           <div className="pole-text">{p.text}</div>
           <PoleShape idx={i} qid={qid} />
         </button>
@@ -537,7 +547,7 @@ function TwoPoleAnswers({ poles, selected, onSelect, qid = "q2" }) {
    ============================================================ */
 function RankOneAnswers({ options, selected, onSelect }) {
   return (
-    <div className="answers-grid">
+    <div className="answers-grid" role="radiogroup" aria-labelledby="active-question-prompt">
       {options.map((opt, i) => {
         const isSel = selected === i;
         const isDim = selected != null && !isSel;
@@ -546,8 +556,10 @@ function RankOneAnswers({ options, selected, onSelect }) {
             key={i}
             className={`answer-card ${isSel ? "is-selected" : ""} ${isDim ? "is-dimmed" : ""}`}
             data-idx={String.fromCharCode(65 + i)}
+            role="radio"
+            aria-checked={isSel}
             onClick={() => onSelect(i)}>
-            
+
             <span className="answer-text">{opt}</span>
           </button>);
 
@@ -563,9 +575,9 @@ function PassiveScreen({ onDone, autoAdvance = true }) {
   const [flashing, setFlashing] = useState(false);
   const [pinging, setPinging] = useState(false);
   useEffect(() => {
-    // dot crosses ~50% near 3250ms; fire the flash there so any flicker reads as the dot.
+    // Flash "noticed" mid-drift for 200ms — matches the duration cited in the result's fine print.
     const t1 = setTimeout(() => setFlashing(true), 4750);
-    const t2 = setTimeout(() => setFlashing(false), 4870); // ~120ms exposure, no fade in CSS
+    const t2 = setTimeout(() => setFlashing(false), 4950); // 200ms exposure, no fade in CSS
     const t3 = autoAdvance ? setTimeout(() => onDone(), 6700) : null;
     return () => {clearTimeout(t1);clearTimeout(t2);if (t3) clearTimeout(t3);};
   }, [onDone, autoAdvance]);
@@ -582,7 +594,11 @@ function PassiveScreen({ onDone, autoAdvance = true }) {
         <div className="q-mode" style={{ color: "var(--meta)" }}>·</div>
         <div className="q-mode" style={{ color: "var(--meta)" }}>04 / 08</div>
       </div>
-      <div className="passive">
+      <p className="sr">
+        A dot drifts quietly across the screen. There is nothing to answer here —
+        this step just watches how you watch, then moves on by itself.
+      </p>
+      <div className="passive" aria-hidden="true">
         <div className="horizon"></div>
         <div className="grid-bg"></div>
         <div
@@ -628,7 +644,7 @@ function CalculatingScreen({ onDone }) {
 
   return (
     <div className="calculating">
-      <div className="calc-bar-wrap">
+      <div className="calc-bar-wrap" aria-hidden="true">
         <div className="calc-bar">
           <div className="calc-bar-fill" style={{ width: pct + "%" }}></div>
           <div className="calc-bar-ticks">
@@ -642,7 +658,7 @@ function CalculatingScreen({ onDone }) {
         </div>
       </div>
       <div className="calc-line">{CALC_LINES[lineIdx]}</div>
-      <div className="calc-stream">› {CALC_STREAM[streamIdx]}</div>
+      <div className="calc-stream" aria-hidden="true">› {CALC_STREAM[streamIdx]}</div>
     </div>);
 
 }
@@ -710,7 +726,7 @@ function SingleResult({ regionKey, answers, sawFlash }) {
             </div>
           </div>
           <h1 className="result-region">
-            <span className="nb">· You are the ·</span>
+            <span className="nb"><span aria-hidden="true">· </span>You are the<span aria-hidden="true"> ·</span></span>
             
           <span className="pop" style={{ fontFamily: "Newsreader" }}>
             {r.name}
@@ -740,7 +756,7 @@ function SingleResult({ regionKey, answers, sawFlash }) {
               target="_blank"
               rel="noreferrer"
             >
-              ↗ {r.source}
+              <span aria-hidden="true">↗</span> {r.source}
             </a>
           </div>
         </div>
@@ -759,13 +775,15 @@ function SingleResult({ regionKey, answers, sawFlash }) {
 
       {/* Peer details SINGLE*/}
 <div className={`reveal ${v >= 5 ? "is-visible" : ""}`}>
-  <div className="result-section result-peer">
+  <div className="result-peer">
     <div className="result-peer-head">
-      <span className="result-peer-label-main">Nerd corner</span>
+      <span className="result-peer-badge" aria-hidden="true">{"{ }"}</span>
+      <span className="result-peer-titles">
+        <span className="result-peer-label-main">Nerd corner</span>
+        <span className="result-peer-sub">the mechanism, one level down</span>
+      </span>
     </div>
-    <div>
-      <p className="result-peer-body">{r.peer}</p>
-    </div>
+    <p className="result-peer-body">{r.peer}</p>
   </div>
 </div>
 
@@ -828,7 +846,7 @@ function DualResult({ aKey, bKey, answers, sawFlash }) {
             </div>
           </div>
           <h1 className="result-region result-region-dual">
-            <span className="nb">· You are between ·</span>
+            <span className="nb"><span aria-hidden="true">· </span>You are between<span aria-hidden="true"> ·</span></span>
 
             <span className="pop" style={{ fontFamily: "Newsreader" }}>
               {a.name}
@@ -877,7 +895,7 @@ function DualResult({ aKey, bKey, answers, sawFlash }) {
               target="_blank"
               rel="noreferrer"
             >
-              ↗ {a.source}
+              <span aria-hidden="true">↗</span> {a.source}
             </a>
             <p style={{ marginTop: 18 }}>
               <strong
@@ -900,7 +918,7 @@ function DualResult({ aKey, bKey, answers, sawFlash }) {
               target="_blank"
               rel="noreferrer"
             >
-              ↗ {b.source}
+              <span aria-hidden="true">↗</span> {b.source}
             </a>
           </div>
         </div>
@@ -918,9 +936,13 @@ function DualResult({ aKey, bKey, answers, sawFlash }) {
 
     {/* Peer details DUAL */}
 <div className={`reveal ${v >= 5 ? "is-visible" : ""}`}>
-  <div className="result-section result-peer">
+  <div className="result-peer">
     <div className="result-peer-head">
-      <span className="result-peer-label-main">Nerd corner</span>
+      <span className="result-peer-badge" aria-hidden="true">{"{ }"}</span>
+      <span className="result-peer-titles">
+        <span className="result-peer-label-main">Nerd corner</span>
+        <span className="result-peer-sub">the mechanism, one level down</span>
+      </span>
     </div>
 
     <div className="result-peer-lines">
@@ -962,7 +984,7 @@ function DualResult({ aKey, bKey, answers, sawFlash }) {
 function LandingDeco() {
   // abstract corner mark — interconnected nodes (rough nervous-system hint)
   return (
-    <svg className="landing-deco" viewBox="0 0 280 280" fill="none" stroke="currentColor" strokeWidth="0.8" style={{ color: "var(--ink)" }}>
+    <svg className="landing-deco" aria-hidden="true" viewBox="0 0 280 280" fill="none" stroke="currentColor" strokeWidth="0.8" style={{ color: "var(--ink)" }}>
       <g className="ld-rings">
         <circle className="ld-ring ld-ring-1" cx="140" cy="140" r="120" opacity="0.18" />
         <circle className="ld-ring ld-ring-2" cx="140" cy="140" r="92" opacity="0.25" />
@@ -1001,7 +1023,7 @@ function LandingScreen({ onStart }) {
       <div className="landing-cta-row">
         <button className="btn" onClick={onStart}>
           Begin observation
-          <span className="arrow">→</span>
+          <span className="arrow" aria-hidden="true">→</span>
         </button>
         <span style={{ fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--meta)" }}>
           ~ 90&thinsp;sec · 8 prompts
@@ -1039,7 +1061,7 @@ function QuestionScreen({ q, qIndex, total, answer, setAnswer, onNext, autoAdvan
         <div className="q-mode">{q.mode}</div>
         <div className="q-mode" style={{ color: "var(--meta)" }}>{q.id.toUpperCase()} / 8</div>
       </div>
-      <div className="q-text">
+      <div className="q-text" id="active-question-prompt" role="heading" aria-level={2}>
         {q.prompt.map((line, i) => <span key={i}>{line}{i < q.prompt.length - 1 ? <br /> : null}</span>)}
       </div>
       {q.type === "tap" &&
@@ -1054,7 +1076,7 @@ function QuestionScreen({ q, qIndex, total, answer, setAnswer, onNext, autoAdvan
       <div className={`q-next-row ${hasSel ? "has-selection" : ""}`}>
         <span className="reselect-hint">tap another to change</span>
         <button className="btn" disabled={!hasSel} onClick={onNext}>
-          Continue <span className="arrow">→</span>
+          Continue <span className="arrow" aria-hidden="true">→</span>
         </button>
       </div>
     </div>);
@@ -1064,22 +1086,12 @@ function QuestionScreen({ q, qIndex, total, answer, setAnswer, onNext, autoAdvan
 /* ============================================================
    App
    ============================================================ */
-const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "autoAdvance": false,
-  "previewRegion": "AUTO",
-  "previewMode": "single",
-  "ambient": true
-} /*EDITMODE-END*/;
-
 function App() {
 
   // step indices: 0 = landing, 1..8 = q1..q8, 9 = calculating, 10 = result
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState(Array(8).fill(null));
   const [sawFlash, setSawFlash] = useState(false);
-  const [t, setTweak] = window.useTweaks ?
-  window.useTweaks(TWEAK_DEFAULTS) :
-  [TWEAK_DEFAULTS, () => {}];
 
   // make 50/50 whether the quiz "saw" the flash, recompute when entering result
   useEffect(() => {
@@ -1103,16 +1115,23 @@ function App() {
 
   const result = useMemo(() => computeResult(answers), [answers]);
 
-  // override result if previewRegion is set in tweaks
+  const screenRef = useRef(null);
+  useEffect(() => {
+    // Move focus to the freshly-mounted screen so screen-reader and keyboard
+    // users are carried to the new content instead of being dropped on <body>.
+    const el = screenRef.current;
+    if (el) el.focus({ preventScroll: true });
+  }, [step]);
+
+  const srAnnounce = (() => {
+    if (step === 0) return "Which brain region are you? Ready to begin.";
+    if (step >= 1 && step <= 8) return `Question ${step} of 8.`;
+    if (step === 9) return "Calculating your result.";
+    if (step === 10) return "Your result is ready.";
+    return "";
+  })();
+
   const renderResult = () => {
-    if (t.previewRegion && t.previewRegion !== "AUTO") {
-      if (t.previewMode === "dual") {
-        // pick a paired region for demo — second-place from data, fallback to PFC
-        const second = result.secondary || (t.previewRegion === "PFC" ? "HIPPOCAMPUS" : "PFC");
-        return <DualResult aKey={t.previewRegion} bKey={second === t.previewRegion ? "AMYGDALA" : second} answers={answers} sawFlash={sawFlash} />;
-      }
-      return <SingleResult regionKey={t.previewRegion} answers={answers} sawFlash={sawFlash} />;
-    }
     if (result.secondary) {
       return <DualResult aKey={result.primary} bKey={result.secondary} answers={answers} sawFlash={sawFlash} />;
     }
@@ -1139,8 +1158,10 @@ function App() {
 
   return (
     <div className="app">
-      {t.ambient && <div className="ambient"></div>}
-      {t.ambient && <div className="grid-veil"></div>}
+      <div className="ambient" aria-hidden="true"></div>
+      <div className="grid-veil" aria-hidden="true"></div>
+
+      <div className="sr" role="status" aria-live="polite">{srAnnounce}</div>
 
       <div className="top-meta">
         <div>
@@ -1155,7 +1176,7 @@ function App() {
 
       <div className="stage">
         {/* Render only the active screen so the float-up animation runs cleanly each transition */}
-        <div className={`screen is-active-screen ${step === 10 ? "screen-wide" : ""}`} key={`step-${step}`}>
+        <div className={`screen is-active-screen ${step === 10 ? "screen-wide" : ""}`} key={`step-${step}`} ref={screenRef} tabIndex={-1}>
           {step === 0 && <LandingScreen onStart={() => goTo(1)} />}
           {step >= 1 && step <= 8 && (() => {
             const i = step - 1;
@@ -1170,7 +1191,7 @@ function App() {
               answer={answers[i]}
               setAnswer={(v) => setAnswer(i, v)}
               onNext={next}
-              autoAdvance={t.autoAdvance} />;
+              autoAdvance={false} />;
 
 
           })()}
@@ -1188,65 +1209,6 @@ function App() {
           }
         </div>
       </div>
-
-      {/* Tweaks panel */}
-      {window.TweaksPanel &&
-      <window.TweaksPanel title="Tweaks">
-          <window.TweakSection title="Flow">
-            <window.TweakToggle
-            label="Auto-advance"
-            value={!!t.autoAdvance}
-            onChange={(v) => setTweak("autoAdvance", v)} />
-          
-            <window.TweakToggle
-            label="Ambient backdrop"
-            value={!!t.ambient}
-            onChange={(v) => setTweak("ambient", v)} />
-          
-          </window.TweakSection>
-
-          <window.TweakSection title="Jump to screen">
-            <div className="tweaks-jump-row">
-              <button onClick={() => goTo(0)}>Landing</button>
-              <button onClick={() => goTo(1)}>Q1 · tap</button>
-              <button onClick={() => goTo(2)}>Q2 · pole</button>
-              <button onClick={() => goTo(3)}>Q3 · rank</button>
-              <button onClick={() => goTo(4)}>Q4 · passive</button>
-              <button onClick={() => goTo(5)}>Q5 · tap</button>
-              <button onClick={() => goTo(6)}>Q6 · tap</button>
-              <button onClick={() => goTo(7)}>Q7 · pole</button>
-              <button onClick={() => goTo(8)}>Q8 · tap</button>
-              <button onClick={() => goTo(9)}>Calc</button>
-              <button onClick={() => goTo(10)}>Result</button>
-            </div>
-          </window.TweakSection>
-
-          <window.TweakSection title="Result preview">
-            <window.TweakSelect
-            label="Region"
-            value={t.previewRegion}
-            onChange={(v) => setTweak("previewRegion", v)}
-            options={[
-            { value: "AUTO", label: "Auto (from answers)" },
-            { value: "AMYGDALA", label: "Amygdala" },
-            { value: "HIPPOCAMPUS", label: "Hippocampus" },
-            { value: "PFC", label: "Prefrontal Cortex" },
-            { value: "INSULA", label: "Insula" },
-            { value: "NAC", label: "Nucleus Accumbens" },
-            { value: "HABENULA", label: "Habenula" },
-            { value: "LC", label: "Locus Coeruleus" },
-            { value: "CLAUSTRUM", label: "Claustrum" }]
-            } />
-          
-            <window.TweakRadio
-            label="Mode"
-            value={t.previewMode}
-            onChange={(v) => setTweak("previewMode", v)}
-            options={["single", "dual"]} />
-          
-          </window.TweakSection>
-        </window.TweaksPanel>
-      }
     </div>);
 
 }
