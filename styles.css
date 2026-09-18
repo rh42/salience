@@ -355,6 +355,12 @@ body {
   justify-content: center; /* center text in the row */
 }
 
+.landing-credit a,
+.result-foot .meta a {
+  color: inherit;
+  text-underline-offset: 3px;
+}
+
 .landing-credit::before,
 .landing-credit::after {
   content: "";
@@ -709,7 +715,9 @@ body {
   100% { box-shadow: 0 0 0 1px oklch(0.55 0.13 250 / 0.18), 0 0 18px oklch(0.55 0.13 250 / 0.22); }
 }
 
-/* Subliminal — small, low corner, mid-grey, ~2.5% opacity peak, 120ms instant. */
+/* Subliminal — small, low corner, mid-grey, 200ms instant. 12% opacity: near
+   threshold, so attention on the dot does most of the hiding and a few
+   people half-catch it (4% was effectively invisible). */
 .passive .subliminal {
   position: absolute;
   bottom: 14%;
@@ -723,7 +731,7 @@ body {
   opacity: 0;
   transition: none;
 }
-.passive .subliminal.is-flashing { opacity: 0.04; }
+.passive .subliminal.is-flashing { opacity: 0.12; }
 
 .passive-caption {
   margin-top: 20px;
@@ -907,10 +915,13 @@ body {
   content: "";
 }
 
+/* Same 200px gutter + 36px gap as .result-head, so the title and every
+   section body share one left edge; labels sit on the body's first baseline. */
 .result-section {
   display: grid;
-  grid-template-columns: 140px 1fr;
-  gap: 28px;
+  grid-template-columns: 200px 1fr;
+  gap: 36px;
+  align-items: baseline;
   padding: 22px 0;
   border-top: none;
 }
@@ -983,6 +994,14 @@ body {
   align-items: center;
   gap: 10px;
   margin-bottom: 18px;
+  align-self: stretch;
+}
+/* two drawings share the 200px gutter instead of spilling into the title */
+.dual-visual-pair .rv {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 150px;
+  height: auto;
 }
 .dual-amp {
   font-family: var(--serif);
@@ -1007,24 +1026,9 @@ body {
   align-self: center;
   flex-shrink: 0;
 }
-.section-tag::after {
-  content: "";
-  position: absolute;
-  left: 22px;
-  bottom: -6px;
-  width: 60px;
-  height: 6px;
-  background: var(--accent);
-  opacity: 0.25;
-  transform: skewX(-12deg);
-  border-radius: 1px;
-}
 .section-tag.tag-observed { font-family: var(--mono); font-style: normal; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--meta); }
-.section-tag.tag-observed::after { display: none; }
 .section-tag.tag-peer { font-family: var(--mono); font-style: normal; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--meta); }
-.section-tag.tag-peer::after { display: none; }
-.section-tag.tag-flash { font-family: var(--mono); font-style: normal; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--meta); }
-.section-tag.tag-flash::after { display: none; }
+.result-nerd .section-tag { flex-direction: column; align-items: flex-start; gap: 10px; }
 .section-tag.tag-observed .badge { background: var(--warm); }
 .section-tag.tag-peer .badge { background: var(--meta); }
 .section-tag.tag-flash .badge { background: var(--accent-2); }
@@ -1082,109 +1086,32 @@ body {
 /* ============================================================
    Nerd corner — the "deeper mechanism" panel
    ============================================================ */
-.result-peer {
-  display: block;
-  margin-top: 8px;
-  padding: 22px 24px 24px;
-  border-radius: var(--r-card);
-  border: 1px solid var(--rule-strong);
-  background: linear-gradient(180deg, var(--paper) 0%, var(--bg-veil) 100%);
-  position: relative;
-  overflow: hidden;
-}
-/* faint graph-paper texture — nerdy but quiet, fading from the top-right */
-.result-peer::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(to right, var(--rule) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
-  background-size: 22px 22px;
-  opacity: 0.6;
-  -webkit-mask-image: radial-gradient(ellipse at 88% 0%, black, transparent 68%);
-  mask-image: radial-gradient(ellipse at 88% 0%, black, transparent 68%);
-  pointer-events: none;
-}
-/* accent hairline across the top */
-.result-peer::after {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  opacity: 0.75;
-}
-
-.result-peer-head {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
-  position: relative;
-}
-/* mono glyph chip — "{ }" */
-.result-peer-badge {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  background: var(--accent-soft);
-  border: 1px solid color-mix(in oklab, var(--accent) 28%, transparent);
-  color: var(--accent);
+.section-sub {
   font-family: var(--mono);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: -0.04em;
-}
-.result-peer-titles {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
-}
-.result-peer-label-main {
-  font-family: var(--sans);
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-}
-.result-peer-sub {
-  font-family: var(--mono);
+  font-style: normal;
   font-size: 10px;
+  line-height: 1.5;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--meta);
-  margin-top: 3px;
+  text-wrap: balance;
 }
-
-/* body text: readable, not code-y */
-.result-peer-body {
+.result-nerd p {
+  font-family: var(--serif);
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--ink);
   margin: 0;
-  font-family: var(--sans);
-  font-size: 16px;
-  line-height: 1.72;
-  color: var(--ink-soft);
-  position: relative;
 }
-
-/* dual case: spacing between lines */
-.result-peer-lines .result-peer-body + .result-peer-body {
-  margin-top: 12px;
-}
-
-/* small labels before each line in dual */
-.result-peer-label {
+.result-nerd p + p { margin-top: 14px; }
+/* dual: region name before each line, as in Actually */
+.result-nerd .nerd-name {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 0.78em;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
-  font-weight: 600;
-  margin-right: 6px;
+  color: var(--meta);
+  font-weight: 500;
 }
 
 /*.result-flash {
@@ -1231,6 +1158,22 @@ body {
 .result-flash {
   margin-top: 10px;
 }
+
+/* The closing word: bookends the title (same column edge, one size down).
+   Hidden until FinePrint replays the flash; no transition on the blink. */
+.fine-word {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(44px, 7.5vw, 80px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin: 0 0 8px;
+  opacity: 0;
+}
+.fine-word.is-flash { opacity: 1; }
+.fine-word.is-shown { opacity: 1; transition: opacity 1200ms var(--ease); }
 
 .flash-icon {
   display: none;

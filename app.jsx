@@ -702,6 +702,47 @@ function ObservedReport({ answers, sawFlash }) {
 
 }
 
+/* Fine print: the page ends on the word Q4 flashed at 4% opacity, now in the
+   open. Once it is fully in view it replays the 200 ms exposure, goes dark,
+   then settles in to stay. Reduced motion: it is simply there. */
+function FinePrint({ armed }) {
+  const ref = useRef(null);
+  const [phase, setPhase] = useState("hidden"); // hidden → flash → gap → shown
+  useEffect(() => {
+    if (!armed) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setPhase("shown");
+      return;
+    }
+    const timers = [];
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      // wait out the section's own fade-in before replaying the flash
+      timers.push(setTimeout(() => setPhase("flash"), 900));
+      timers.push(setTimeout(() => setPhase("gap"), 1100));
+      timers.push(setTimeout(() => setPhase("shown"), 2000));
+    }, { threshold: 1 });
+    io.observe(ref.current);
+    return () => {io.disconnect();timers.forEach(clearTimeout);};
+  }, [armed]);
+
+  return (
+    <div className="result-section result-fine">
+      <div className="section-tag tag-flash">Fine print</div>
+      <div>
+        <p ref={ref} className={`fine-word is-${phase}`}>noticed</p>
+        <div className="result-flash">
+          <p>
+            The word “noticed” appeared on screen for 200&thinsp;ms during the moving dot. That timing comes from real amygdala work on signals your eyes miss but your limbic system doesn’t.
+            Here it was mostly a party trick.
+          </p>
+        </div>
+      </div>
+    </div>);
+
+}
+
 function SingleResult({ regionKey, answers, sawFlash }) {
   const r = REGIONS[regionKey];
   const beats = 6; // region, char, actually, observed, peer, flash
@@ -773,38 +814,22 @@ function SingleResult({ regionKey, answers, sawFlash }) {
         </div>
       </div> */}
 
-      {/* Peer details SINGLE*/}
-<div className={`reveal ${v >= 5 ? "is-visible" : ""}`}>
-  <div className="result-peer">
-    <div className="result-peer-head">
-      <span className="result-peer-badge" aria-hidden="true">{"{ }"}</span>
-      <span className="result-peer-titles">
-        <span className="result-peer-label-main">Nerd corner</span>
-        <span className="result-peer-sub">the mechanism, one level down</span>
-      </span>
-    </div>
-    <p className="result-peer-body">{r.peer}</p>
-  </div>
-</div>
+      {/* Nerd corner SINGLE */}
+      <div className={`reveal ${v >= 5 ? "is-visible" : ""}`}>
+        <div className="result-section result-nerd">
+          <div className="section-tag">
+            Nerd corner
+            <span className="section-sub">the mechanism, one level down</span>
+          </div>
+          <div>
+            <p>{r.peer}</p>
+          </div>
+        </div>
+      </div>
 
       {/* Fine print */}
       <div className={`reveal ${v >= 6 ? "is-visible" : ""}`}>
-        <div className="result-section">
-          <div className="section-tag tag-flash">
-            <span className="badge" />
-            Fine print
-          </div>
-          <div className="result-flash">
-            <div className="flash-icon" />
-            <div>
-              <p>
-                The word “noticed” appeared on screen for 200&thinsp;ms during the moving dot. That timing comes from real amygdala work on signals your eyes miss but your limbic system doesn’t.
-                Here it was mostly a party trick.
-              </p>
-            
-            </div>
-          </div>
-        </div>
+        <FinePrint armed={v >= 6} />
       </div>
     </div>
   );
@@ -934,46 +959,23 @@ function DualResult({ aKey, bKey, answers, sawFlash }) {
         </div>
       </div> */}
 
-    {/* Peer details DUAL */}
-<div className={`reveal ${v >= 5 ? "is-visible" : ""}`}>
-  <div className="result-peer">
-    <div className="result-peer-head">
-      <span className="result-peer-badge" aria-hidden="true">{"{ }"}</span>
-      <span className="result-peer-titles">
-        <span className="result-peer-label-main">Nerd corner</span>
-        <span className="result-peer-sub">the mechanism, one level down</span>
-      </span>
-    </div>
-
-    <div className="result-peer-lines">
-      <p className="result-peer-body">
-        <span className="result-peer-label">{a.name} —</span> {a.peer}
-      </p>
-      <p className="result-peer-body">
-        <span className="result-peer-label">{b.name} —</span> {b.peer}
-      </p>
-    </div>
-  </div>
-</div>
+      {/* Nerd corner DUAL */}
+      <div className={`reveal ${v >= 5 ? "is-visible" : ""}`}>
+        <div className="result-section result-nerd">
+          <div className="section-tag">
+            Nerd corner
+            <span className="section-sub">the mechanism, one level down</span>
+          </div>
+          <div>
+            <p><span className="nerd-name">{a.name} —</span> {a.peer}</p>
+            <p><span className="nerd-name">{b.name} —</span> {b.peer}</p>
+          </div>
+        </div>
+      </div>
 
       {/* Fine print DUAL */}
       <div className={`reveal ${v >= 6 ? "is-visible" : ""}`}>
-        <div className="result-section">
-          <div className="section-tag tag-flash">
-            <span className="badge" />
-            Fine print
-          </div>
-          <div className="result-flash">
-            <div className="flash-icon" />
-            <div>
-              <p>
-                The word “noticed” appeared on screen for 200&thinsp;ms during the moving dot. That timing comes from real amygdala work on signals your eyes miss but your limbic system doesn’t.
-                Here it was mostly a party trick.
-              </p>
-             
-            </div>
-          </div>
-        </div>
+        <FinePrint armed={v >= 6} />
       </div>
     </div>
   );
@@ -1037,7 +1039,7 @@ function LandingScreen({ onStart }) {
       </div>
 
       <div className="landing-credit">
-        Made by @jelliwolf, for better or worse.
+        <span>Made by <a href="https://rh42.github.io/" target="_blank" rel="noopener">rh42</a>, for better or worse.</span>
       </div>
     </div>);
 
@@ -1086,10 +1088,26 @@ function QuestionScreen({ q, qIndex, total, answer, setAnswer, onNext, autoAdvan
 /* ============================================================
    App
    ============================================================ */
+// Localhost only, for design review without clicking through:
+// ?result=hippocampus (or ?result=hippocampus,amygdala for a tie) opens on that
+// result; ?q=4 opens on that question.
+const IS_LOCAL = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+const PREVIEW_PARAMS = new URLSearchParams(IS_LOCAL ? location.search : "");
+const PREVIEW_RESULT = (() => {
+  const keys = (PREVIEW_PARAMS.get("result") || "").
+  toUpperCase().split(",").filter((k) => REGIONS[k]);
+  return keys.length ? { primary: keys[0], secondary: keys[1] } : null;
+})();
+const PREVIEW_Q = (() => {
+  const n = parseInt(PREVIEW_PARAMS.get("q"), 10);
+  return n >= 1 && n <= 8 ? n : 0;
+})();
+
 function App() {
 
   // step indices: 0 = landing, 1..8 = q1..q8, 9 = calculating, 10 = result
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(PREVIEW_RESULT ? 10 : PREVIEW_Q);
+  const [preview, setPreview] = useState(PREVIEW_RESULT);
   const [answers, setAnswers] = useState(Array(8).fill(null));
   const [sawFlash, setSawFlash] = useState(false);
 
@@ -1109,11 +1127,12 @@ function App() {
   const goTo = (s) => setStep(s);
   const next = () => setStep((s) => s + 1);
   const restart = () => {
+    setPreview(null);
     setAnswers(Array(8).fill(null));
     setStep(0);
   };
 
-  const result = useMemo(() => computeResult(answers), [answers]);
+  const result = useMemo(() => preview || computeResult(answers), [answers, preview]);
 
   const screenRef = useRef(null);
   useEffect(() => {
@@ -1200,7 +1219,7 @@ function App() {
           <div data-screen-label="10 Result">
               {renderResult()}
               <div className="result-foot">
-                <div className="meta">end of observation · session not stored · made by @jelliwolf, whose own brain declined to comment</div>
+                <div className="meta">end of observation · session not stored · made by <a href="https://rh42.github.io/" target="_blank" rel="noopener">rh42</a>, whose own brain declined to comment</div>
                 <div style={{ display: "flex", gap: 10 }}>
                   <button className="btn btn-ghost" onClick={restart}>← Run again</button>
                 </div>
