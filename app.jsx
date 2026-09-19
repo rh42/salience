@@ -48,7 +48,7 @@ const QUESTIONS = [
   id: "q2",
   type: "twopole",
   mode: "Question 02",
-  prompt: ["The best part of something", "you're looking forward to is…"],
+  prompt: ["The best part of something", "you’re looking forward to is…"],
   poles: [
   { eyebrow: "", text: "The looking forward to it" },
   { eyebrow: "", text: "The actual thing" }]
@@ -58,7 +58,7 @@ const QUESTIONS = [
   id: "q3",
   type: "rankone",
   mode: "Question 03",
-  prompt: ["A friend says something slightly off.", "You can't pin it down exactly.", "You…"],
+  prompt: ["A friend says something slightly off.", "You can’t pin it down exactly.", "You…"],
   options: [
   "Feel it before you think it",
   "Run it against your history with them",
@@ -70,7 +70,7 @@ const QUESTIONS = [
   id: "q5",
   type: "tap",
   mode: "Question 05",
-  prompt: ["You learn something that contradicts", "something you've believed for years.", "Your first feeling is…"],
+  prompt: ["You learn something that contradicts", "something you’ve believed for years.", "Your first feeling is…"],
   options: [
   "Curious. What else is wrong?",
   "Resistant. Are you sure this is right?",
@@ -82,11 +82,11 @@ const QUESTIONS = [
   id: "q6",
   type: "tap",
   mode: "Question 06",
-  prompt: ["You finish something you worked hard on.", "Before you can feel proud, you're already…"],
+  prompt: ["You finish something you worked hard on.", "Before you can feel proud, you’re already…"],
   options: [
-  "Looking at what's next",
+  "Looking at what’s next",
   "Breathing for a second",
-  "Finding what's wrong with it",
+  "Finding what’s wrong with it",
   "Wanting to share it"]
 
 },
@@ -94,7 +94,7 @@ const QUESTIONS = [
   id: "q7",
   type: "twopole",
   mode: "Question 07",
-  prompt: ["When your brain won't shut up,", "it's usually…"],
+  prompt: ["When your brain won’t shut up,", "it’s usually…"],
   poles: [
   { eyebrow: "", text: "Reaching forward" },
   { eyebrow: "", text: "Reaching back" }]
@@ -104,9 +104,9 @@ const QUESTIONS = [
   id: "q8",
   type: "tap",
   mode: "Question 08",
-  prompt: ["Something catches you off guard.", "A sentence, an image, a stranger's expression.", "Before you know what it means, you…"],
+  prompt: ["Something catches you off guard.", "A sentence, an image, a stranger’s expression.", "Before you know what it means…"],
   options: [
-  "It's in your body before you've named it",
+  "It’s in your body before you’ve named it",
   "You want to go back and stay in it",
   "You immediately want more",
   "You notice yourself noticing"]
@@ -115,18 +115,18 @@ const QUESTIONS = [
 
 
 // ==== QUIZ REGIONS (BEGIN) ====
-// Fact-checked 2026-05-10. Do not change science or citations here without checking the brief.
+// Fact-checked 2026-09-19. Do not change science or citations here without checking the brief.
 
 const REGIONS = {
 AMYGDALA: {
   name: "AMYGDALA",
   code: "BA-Amy",
   role: "Significance detector",
-  char: "You get the \"something just tilted\" ping before anyone else has noticed the floor moved. | Living like that means your body starts the scene before your story has caught up, which is not relaxing for you or the people who love you. | At least you are rarely late to realising when a throwaway moment is about to turn into a plot point.",
- actually: "The amygdala is tuned for significance: threat, awe, novelty, flashes of beauty, anything that might change the state of the world around you. One woman with bilateral amygdala damage (the classic SM case) calmly approached snakes, walked through haunted houses, and later described a real-life knife attack without feeling much fear (Feinstein et al., 2011). Yet when she and two other patients inhaled air enriched with CO₂ in the lab, all three experienced intense panic despite having no functional amygdalae (Feinstein et al., 2013). That finding points to the amygdala as especially important for reading emotionally charged signals from the outside world; internally triggered fear, it turns out, can take other routes.",
-  source: "Feinstein, J. S., Buzza, C., Hurlemann, R., Follmer, R. L., Dahdaleh, N. S., Coryell, W. H., Welsh, M. J., Tranel, D., & Wemmie, J. A. (2013). Fear and panic in humans with bilateral amygdala damage. *Nature Neuroscience, 16*(3), 270–272.",
+  char: "You get the “something just tilted” ping before anyone else has noticed the floor moved. | Living like that means your body starts the scene before your story has caught up, which is not relaxing for you or the people who love you. | At least you are rarely the last to realise a throwaway moment is about to turn into a plot point.",
+ actually: "The amygdala is tuned for significance: threat, awe, novelty, flashes of beauty, anything that might change the state of the world around you. One woman with bilateral amygdala damage (the classic SM case) calmly approached snakes, walked through haunted houses, and later described a real-life knife attack without feeling much fear, in earlier work by the same group. Yet when she and two other patients inhaled air enriched with CO₂ in the lab, all three experienced intense panic despite having no functional amygdalae (Feinstein et al., 2013). That finding points to the amygdala as especially important for reading emotionally charged signals from the outside world; internally triggered fear, it turns out, can take other routes.",
+  source: "Feinstein, J. S., Buzza, C., Hurlemann, R., Follmer, R. L., Dahdaleh, N. S., Coryell, W. H., Welsh, M. J., Tranel, D., & Wemmie, J. A. (2013). Fear and panic in humans with bilateral amygdala damage. Nature Neuroscience, 16(3), 270–272.",
   sourceUrl: "https://doi.org/10.1038/nn.3323",
-  peer: "Describing the amygdala as a salience or significance detector fits the data better than the old \"fear centre\" label. Basolateral amygdala ensembles learn which cues predict outcomes worth updating on, across both aversive and appetitive tasks, while central and related nuclei drive autonomic and behavioural responses via hypothalamus and brainstem. Human and animal work show robust amygdala engagement for novelty, social evaluation and positive arousal, not only conditioned threat (Fox & Shackman, 2024). The classic fear-conditioning story is, in part, a historical sampling bias that solidified into a convenient brand rather than a complete description of its function.",
+  peer: "Describing the amygdala as a salience or significance detector fits the data better than the old “fear centre” label. Basolateral amygdala ensembles learn which cues predict outcomes worth updating on, across both aversive and appetitive tasks, while central and related nuclei drive autonomic and behavioural responses via hypothalamus and brainstem. Human and animal work show robust amygdala engagement for novelty, social evaluation and positive arousal, not only conditioned threat (Fox & Shackman, 2024). The classic fear-conditioning story is, in part, a historical sampling bias that solidified into a convenient brand rather than a complete description of its function.",
 },
   HIPPOCAMPUS: {
   name: "HIPPOCAMPUS",
@@ -134,18 +134,18 @@ AMYGDALA: {
   role: "Memory reconstructor",
   char: "You automatically shelve every moment next to the ones it rhymes with. | Small events rarely stay small; your brain keeps turning them over to see where they fit and what they might be the start of. | When everyone else feels lost, you can still point to the path that actually led here.",
   actually: "The hippocampus does not keep perfect recordings. It helps reconstruct each memory from fragments of place, time, people and emotion stored across the cortex, which means every act of remembering is also a chance to update the story. In a 2023 fMRI study using the classic misinformation paradigm, hippocampal activity patterns shifted across the original event, a misleading description, and a later memory test. Post-event traces in the hippocampus predicted whether people would form confident false memories (Shao et al., 2023). The same medial temporal circuitry is among the first to deteriorate in Alzheimer’s disease, which is one reason anchoring new experiences in time and place often frays early in the illness.",
-  source: "Shao, H., Li, J., Loftus, E. F., & Zhu, B. (2023). Cross-stage neural pattern similarity in the hippocampus predicts false memory derived from post-event inaccurate information. *Nature Communications, 14*(1), 2299.",
+  source: "Shao, H., Li, J., Loftus, E. F., & Zhu, B. (2023). Cross-stage neural pattern similarity in the hippocampus predicts false memory derived from post-event inaccurate information. Nature Communications, 14(1), 2299.",
   sourceUrl: "https://doi.org/10.1038/s41467-023-38046-y",
-  peer: "At the circuit level, the hippocampus supports episodic memory by encoding relations among items, space and time. Dentate gyrus and CA3 work together to balance pattern separation and pattern completion: keeping similar episodes distinct while still allowing a partial cue to retrieve a whole event. Beyond space, hippocampal ensembles also map temporal context—so-called ‘time cells’ fire at specific moments within a sequence, helping order events in memory (Eichenbaum, 2017). This same machinery underlies flexible recombination of past experiences in imagination and planning, not just literal replay of what happened.",
+  peer: "At the circuit level, the hippocampus supports episodic memory by encoding relations among items, space and time. Dentate gyrus and CA3 work together to balance pattern separation and pattern completion: keeping similar episodes distinct while still allowing a partial cue to retrieve a whole event. Beyond space, hippocampal ensembles also map temporal context—so-called “time cells” fire at specific moments within a sequence, helping order events in memory (Eichenbaum, 2017). This same machinery underlies flexible recombination of past experiences in imagination and planning, not just literal replay of what happened.",
 },
   PFC: {
   name: "PREFRONTAL CORTEX",
   code: "BA-PFC",
   role: "Editor / planner",
   char: "You edit yourself before the words have even reached your mouth. | It keeps you ahead of other people’s reactions and also slightly exhausted by your own. | Most of the damage you do stays in draft form.",
-  actually: "The prefrontal cortex is one of the last brain regions to fully mature, with structure and connectivity continuing to develop into the mid-twenties for most people (Casey et al., 2008). During adolescence, limbic and reward circuits respond quickly and strongly to incentives, threat and especially peers, while top-down prefrontal control is still stabilising (Casey et al., 2008). Adolescents can recruit those control circuits, but do so less consistently when emotional or social stakes are high (Casey et al., 2008). The result is a system biased toward exploration and risk in exactly the years you are leaving familiar groups and testing new attachments, with the PFC arriving late to tidy up habits it did not fully shape.",
-  source: "Casey, B. J., Jones, R. M., & Hare, T. A. (2008). The adolescent brain. Annals of the New York Academy of Sciences, 1124(1), 111–126.",
-  sourceUrl: "https://doi.org/10.1196/annals.1440.010",
+  actually: "The prefrontal cortex is where the brain edits its own reactions. When people are shown something upsetting and asked to reinterpret it, to see the people crying as at a wedding rather than a funeral, lateral and medial prefrontal regions ramp up while amygdala activity drops, and the reported feeling drops with it (Ochsner et al., 2002). A meta-analysis of 48 such studies found the same prefrontal control regions doing the work every time, and the amygdala as the one region they reliably turn down (Buhle et al., 2014). This machinery is also the last to finish wiring, with connectivity still settling well into the twenties. What feels like composure is often a rewrite happening a few hundred milliseconds after the first draft.",
+  source: "Buhle, J. T., Silvers, J. A., Wager, T. D., Lopez, R., Onyemekwu, C., Kober, H., Weber, J., & Ochsner, K. N. (2014). Cognitive reappraisal of emotion: A meta-analysis of human neuroimaging studies. Cerebral Cortex, 24(11), 2981–2990.",
+  sourceUrl: "https://doi.org/10.1093/cercor/bht154",
   peer: "Mechanistically, prefrontal cortex supports cognitive control by actively maintaining task goals and rules that bias processing in other brain regions (Miller & Cohen, 2001). Dorsolateral PFC contributes strongly to working memory, planning and strategic inhibition, while ventromedial and orbitofrontal regions integrate value, affective meaning and outcome feedback from limbic systems. Hierarchical accounts propose rostro–caudal gradients in PFC, with more anterior zones supporting increasingly abstract, multi-step policies for behaviour (Badre & Nee, 2018). This architecture means “control” is not a single switch but a layered system that can be pushed, overloaded or selectively engaged depending on context.",
 },
   INSULA: {
@@ -153,7 +153,7 @@ AMYGDALA: {
   code: "BA-Ins",
   role: "Body interpreter",
   char: "Your body keeps sending you notes and you’ve learned, mostly, to read them. | It means you feel the weather inside you change before you have language for why, which can be unsettling in company that prefers reasons. | You often step away or lean in at the right moment, long before the spreadsheet would have told you to.",
-  actually: "The insula sits buried in the lateral sulcus and acts as a hub for sensing the internal state of the body. Posterior insula receives signals about pain, temperature, visceral stretch, hunger, thirst and even air hunger, while anterior insula builds these into a conscious ‘felt sense’ of how the body is doing (Craig, 2003). That interoceptive map underpins experiences like a racing heart, a tight stomach or a lump in the throat, and it helps give emotions their bodily texture. What we call a gut feeling is often this early internal data arriving before you have a story to explain it.",
+  actually: "The insula sits buried in the lateral sulcus and acts as a hub for sensing the internal state of the body. Posterior insula receives signals about pain, temperature, visceral stretch, hunger, thirst and even air hunger, while anterior insula builds these into a conscious “felt sense” of how the body is doing (Craig, 2003). That interoceptive map underpins experiences like a racing heart, a tight stomach or a lump in the throat, and it helps give emotions their bodily texture. What we call a gut feeling is often this early internal data arriving before you have a story to explain it.",
   source: "Craig, A. D. (2003). Interoception: The sense of the physiological condition of the body. Current Opinion in Neurobiology, 13(4), 500–505.",
   sourceUrl: "https://doi.org/10.1016/S0959-4388(03)00090-4",
   peer: "Anatomically, the insula forms a posterior-to-anterior gradient from primary interoceptive representation to integrated emotional awareness (Craig, 2003). The anterior insula is reliably engaged when people experience pain or disgust themselves and when they observe these states in others, as well as during decisions under risk and uncertainty (Singer et al., 2009). This pattern fits a unifying view in which the insula tracks current and predicted bodily states, supports subjective feeling, and links them to social and decision contexts, making it a key node in both the salience and empathy networks.",
@@ -162,8 +162,8 @@ NAC: {
   name: "NUCLEUS ACCUMBENS",
   code: "BA-NAc",
   role: "Wanting circuit",
-  char: "For you, the charge lives in wanting, not in having. | That makes it hard to feel finished; the second you reach something, your attention is already leaning toward what might come next. | You are very good at generating momentum in stale rooms and dead projects, even if you rarely get to sit in the glow afterward.",
-  actually: "The nucleus accumbens, part of the ventral striatum, is a key hub for translating rewards and cues into motivation. Dopamine here is more closely tied to incentive salience—the urge to pursue a reward—than to the pleasure of consuming it (Berridge & Kringelbach, 2015). In animal studies, depleting or blocking nucleus accumbens dopamine makes animals stop working for food, yet they still show normal ‘liking’ reactions if the food is delivered directly. Liking depends on small opioid-sensitive hedonic hotspots in accumbens shell and ventral pallidum, while wanting relies more on distributed mesolimbic dopamine. That separation helps explain why craving can stay high, or even grow, in addiction long after the actual experience has stopped feeling especially good.",
+  char: "For you, the charge lives in wanting, not in having. | That makes it hard to feel finished; the second you reach something, your attention is already leaning toward what might come next. | You are very good at generating momentum in stale rooms and dead projects, even if you rarely get to sit in the glow afterwards.",
+  actually: "The nucleus accumbens, part of the ventral striatum, is a key hub for translating rewards and cues into motivation. Dopamine here is more closely tied to incentive salience—the urge to pursue a reward—than to the pleasure of consuming it (Berridge & Kringelbach, 2015). In animal studies, depleting or blocking nucleus accumbens dopamine makes animals stop working for food, yet they still show normal “liking” reactions if the food is delivered directly. Liking depends on small opioid-sensitive hedonic hotspots in accumbens shell and ventral pallidum, while wanting relies more on distributed mesolimbic dopamine. That separation helps explain why craving can stay high, or even grow, in addiction long after the actual experience has stopped feeling especially good.",
   source: "Berridge, K. C., & Kringelbach, M. L. (2015). Pleasure systems in the brain. Neuron, 86(3), 646–664.",
   sourceUrl: "https://doi.org/10.1016/j.neuron.2015.02.018",
   peer: "At a circuit level, the nucleus accumbens integrates glutamatergic input from cortex and limbic regions with mesolimbic dopamine signals to energise approach behaviour. Medium spiny neurons in accumbens core and shell are especially important for effort-related choice and behavioural activation. Work reviewed by Salamone and Correa (2012) shows that disrupting accumbens dopamine does not abolish basic appetite, but shifts behaviour away from high-effort, high-payoff options toward low-effort alternatives. In that sense, dopamine here helps decide whether a reward is worth working for, rather than simply encoding how much it will be liked.",
@@ -173,7 +173,7 @@ HABENULA: {
   code: "BA-Hb",
   role: "Discrepancy detector",
   char: "You keep a sharp internal draft of how things were meant to go and you feel it when reality clips the line. | That sensitivity helps you catch the misses other people step over, but it also means disappointment can arrive three steps before anyone else notices a problem. | You are often the first to sense when a plan has quietly stopped making sense.",
-  actually: "The lateral habenula is a tiny structure that lights up when things go worse than expected. In primate recordings, many lateral habenula neurons increase their firing when a cue predicts no reward and decrease firing when a cue predicts reward; their activity flips when the contingencies reverse (Matsumoto & Hikosaka, 2007). These neurons also respond when an expected reward is omitted, and they send inhibitory signals to midbrain dopamine cells. Functionally, the habenula sends a kind of ‘disappointment’ signal, dampening reward circuits when outcomes fall short of prediction.",
+  actually: "The lateral habenula is a tiny structure that lights up when things go worse than expected. In primate recordings, many lateral habenula neurons increase their firing when a cue predicts no reward and decrease firing when a cue predicts reward; their activity flips when the contingencies reverse (Matsumoto & Hikosaka, 2007). These neurons also respond when an expected reward is omitted, and they send inhibitory signals to midbrain dopamine cells. Functionally, the habenula sends a kind of “disappointment” signal, dampening reward circuits when outcomes fall short of prediction.",
   source: "Matsumoto, M., & Hikosaka, O. (2007). Lateral habenula as a source of negative reward signals in dopamine neurons. Nature, 447(7148), 1111–1115.",
   sourceUrl: "https://doi.org/10.1038/nature05860",
   peer: "Anatomically, the lateral habenula receives input from basal ganglia and limbic forebrain and projects to the rostromedial tegmental nucleus and midbrain dopamine neurons. Optogenetic work in mice shows that activating lateral habenula projections to ventral midbrain is aversive and promotes active, passive and conditioned avoidance behaviours (Stamatakis & Stuber, 2012). Together with primate physiology, this supports the view that lateral habenula encodes negative reward prediction errors and uses them to downregulate dopamine systems, biasing learning and choice away from cues and actions associated with poor or punishing outcomes.",
@@ -183,7 +183,7 @@ HABENULA: {
   code: "BA-LC",
   role: "Norepinephrine hub",
   char: "Some part of you is always scanning for the thing that suddenly matters. | When that system runs hot, every new ping feels urgent, and genuine signal gets harder to separate from noise. | When there really is something worth waking up for, you are already half out of your chair.",
-  actually: "The locus coeruleus is a tiny nucleus in the brainstem whose name literally means “blue spot,” after the dark bluish pigment its neurons show in stained tissue. Despite its size, it sends norepinephrine widely to cortex, thalamus and spinal cord. It is strongly engaged by unexpected, salient or threatening events and by cues that signal a need to reorient, in parallel with autonomic arousal (Sara & Bouret, 2012). Norepinephrine released from LC terminals increases the gain of sensory and cortical circuits, sharpening signal-to-noise, facilitating attention shifts and helping consolidate memories for significant events. In effect, brief bursts from this small cluster help flip the brain into a state primed to notice and respond when something important happens.",
+  actually: "The locus coeruleus is a tiny nucleus in the brainstem whose name literally means “blue spot,” after the bluish pigment its neurons show in fresh tissue. Despite its size, it sends norepinephrine widely to cortex, thalamus and spinal cord. It is strongly engaged by unexpected, salient or threatening events and by cues that signal a need to reorient, in parallel with autonomic arousal (Sara & Bouret, 2012). Norepinephrine released from LC terminals increases the gain of sensory and cortical circuits, sharpening signal-to-noise, facilitating attention shifts and helping consolidate memories for significant events. In effect, brief bursts from this small cluster help flip the brain into a state primed to notice and respond when something important happens.",
   source: "Sara, S. J., & Bouret, S. (2012). Orienting and reorienting: The locus coeruleus mediates cognition through arousal. Neuron, 76(1), 130–141.",
   sourceUrl: "https://doi.org/10.1016/j.neuron.2012.09.011",
   peer: "Physiological recordings suggest that locus coeruleus neurons operate in different modes that shape behaviour. Phasic LC bursts time-locked to task-relevant decisions can facilitate exploitation—focused performance on the current task—whereas very low or very high tonic firing is associated with disengagement and exploration of alternatives (Aston-Jones & Cohen, 2005). In this adaptive gain framework, LC–norepinephrine does more than generate “arousal”: it dynamically adjusts cortical responsiveness so that useful signals are amplified and unhelpful actions are more readily abandoned as their utility drops.",
@@ -205,11 +205,11 @@ const DUAL_SUMMARIES = {
   "AMYGDALA+HABENULA": "You notice what matters and you feel it when it falls short. The amygdala catches significance early; the habenula measures the gap between what could have happened and what did. Your disappointment is rarely vague; it tends to be precise.",
   "AMYGDALA+HIPPOCAMPUS": "You notice what matters and you know where you have seen it before. The amygdala flags significance; the hippocampus cross-references. You are hard to surprise twice and annoyingly good at recognising when history is rhyming.",
   "AMYGDALA+INSULA": "You read the room and you read your body at the same time. The amygdala flags what matters outside; the insula maps what it means inside. You know things before you know how you know them, which is great for intuition and terrible for explanations.",
-  "AMYGDALA+LC": "Something new appears and two systems fire at once one flags its significance, one demands full attention. You rarely miss a change, but the cost is that your attention system tires quickly. Being you is like running hot all the time.",
+  "AMYGDALA+LC": "Something new appears and two systems fire at once: one flags its significance, one demands full attention. You rarely miss a change, but the cost is that your attention system tires quickly. Being you is like running hot all the time.",
   "AMYGDALA+NAC": "Fast to notice, fast to want. The amygdala flags what matters and the nucleus accumbens immediately asks what to do about it. The gap between noticing and wanting is unusually short for you, which is efficient and occasionally expensive.",
   "AMYGDALA+PFC": "You catch the signal and then you edit it. The amygdala registers what matters; the prefrontal cortex manages the response. This looks like composure from the outside. From the inside it involves a small negotiation you rarely mention.",
-  "CLAUSTRUM+HABENULA": "You feel the gap and you watch yourself feel it. The habenula registers the distance between expectation and outcome; the claustrum tracks that registration. You do not just know when something has gone wrong you notice the mechanics of how you realised.",
-  "CLAUSTRUM+HIPPOCAMPUS": "You contextualise and you watch yourself do it. The hippocampus files each moment next to the ones it rhymes with; the claustrum notices the filing. You have unusually good access to your own patterns what you reach for, what you avoid, what you have already been through before.",
+  "CLAUSTRUM+HABENULA": "You feel the gap and you watch yourself feel it. The habenula registers the distance between expectation and outcome; the claustrum tracks that registration. You do not just know when something has gone wrong; you notice the mechanics of how you realised.",
+  "CLAUSTRUM+HIPPOCAMPUS": "You contextualise and you watch yourself do it. The hippocampus files each moment next to the ones it rhymes with; the claustrum notices the filing. You have unusually good access to your own patterns: what you reach for, what you avoid, what you have been through before.",
   "CLAUSTRUM+INSULA": "You feel what your body is doing and you notice yourself feeling it. The insula reads your internal state; the claustrum watches the reading. That can give you exquisite self-knowledge and make it harder than you would like to stop monitoring yourself.",
   "CLAUSTRUM+LC": "Something shifts and you catch yourself catching it. The locus coeruleus orients; the claustrum observes the orientation. You notice both the event and the snap of attention, which can deepen self-understanding or turn into low-level distraction that never quite shuts up.",
   "CLAUSTRUM+NAC": "You want things and you watch yourself want them. The nucleus accumbens leans forward; the claustrum notices the lean. You can see the wanting before you decide whether to act on it, which is sometimes useful and sometimes unsettling.",
@@ -219,16 +219,16 @@ const DUAL_SUMMARIES = {
   "HABENULA+LC": "You notice what is new and you feel it when it does not deliver. The locus coeruleus orients toward what just changed; the habenula registers whether it was worth the attention. You learn fast from disappointment, and you burn through promising things at speed.",
   "HABENULA+NAC": "The wanting system and the disappointment system, running in parallel. The nucleus accumbens reaches forward; the habenula files the report when the outcome arrives. You are good at desire and familiar with its aftermath.",
   "HABENULA+PFC": "You measure the gap between expectation and outcome, and then you plan around it. The habenula finds the discrepancy; the prefrontal cortex writes a new strategy. You are better at this than you think, and more tired than you tend to admit.",
-  "HIPPOCAMPUS+INSULA": "You remember how things felt, not just what happened. The hippocampus files the context; the insula supplies the bodily texture. Your memories arrive with physical detail tension, weight, temperature which makes them vivid and sometimes hard to set down.",
+  "HIPPOCAMPUS+INSULA": "You remember how things felt, not just what happened. The hippocampus files the context; the insula supplies the bodily texture. Your memories arrive with physical detail: tension, weight, temperature. That makes them vivid and sometimes hard to set down.",
   "HIPPOCAMPUS+LC": "Something unexpected appears and you are already tracing it back. The locus coeruleus flags the surprise; the hippocampus starts cross-referencing. For you, surprise is quickly followed by a search for the missed clue.",
   "HIPPOCAMPUS+NAC": "One system reaches back; one leans forward. The hippocampus files each moment in context; the nucleus accumbens is already oriented toward what comes next. You often process where you are while already moving toward where you are going.",
-  "HIPPOCAMPUS+PFC": "You run on context and you edit it. The hippocampus provides the story; the prefrontal cortex keeps revising the ending. Most people do one or the other you do both simultaneously, which explains a few things.",
+  "HIPPOCAMPUS+PFC": "You run on context and you edit it. The hippocampus provides the story; the prefrontal cortex keeps revising the ending. Most people do one or the other; you do both simultaneously, which explains a few things.",
   "INSULA+LC": "You register new things in your body first. The locus coeruleus flags the shift; the insula carries it as a physical sensation. When something changes around you, something changes inside you, usually before you have words for it.",
-  "INSULA+NAC": "For you, wanting has a texture. The nucleus accumbens generates the pull toward what is next; the insula registers it in the body. Desire is not abstract it arrives with physical weight, and you notice when that weight shifts.",
-  "INSULA+PFC": "Your body and your prefrontal cortex are in ongoing negotiation. The insula sends signals up; the PFC decides what to do with them. You often pause before acting in ways other people call thoughtful, which is not always how it feels from the inside.",
+  "INSULA+NAC": "For you, wanting has a texture. The nucleus accumbens generates the pull toward what is next; the insula registers it in the body. Desire is not abstract; it arrives with physical weight, and you notice when that weight shifts.",
+  "INSULA+PFC": "Your body and your prefrontal cortex are in ongoing negotiation. The insula sends signals up; the PFC decides what to do with them. You often pause before acting. Other people call it thoughtful. From the inside it does not always feel that way.",
   "LC+NAC": "Reaching forward, always. The nucleus accumbens wants what is next; the locus coeruleus fires when something new demands attention. You are very good at starting things. Finishing is a separate question.",
   "LC+PFC": "Something new appears and you are already thinking about what to do with it. The locus coeruleus reorients; the prefrontal cortex starts planning. This works well in fast-moving situations and can make stillness feel like a problem to solve.",
-  "NAC+PFC": "The drive and the editor, in the same brain. The nucleus accumbens generates momentum; the prefrontal cortex decides what to do with it. This can produce sharply directed effort and a specific kind of exhaustion wanting something while revising your stance on wanting it."
+  "NAC+PFC": "The drive and the editor, in the same brain. The nucleus accumbens generates momentum; the prefrontal cortex decides what to do with it. This can produce sharply directed effort and a specific kind of exhaustion: wanting something while revising your stance on wanting it."
 };
 
 // ==== QUIZ REGIONS (END) ====
@@ -1038,9 +1038,6 @@ function LandingScreen({ onStart }) {
         </div>
       </div>
 
-      <div className="landing-credit">
-        <span>Made by <a href="https://rh42.github.io/" target="_blank" rel="noopener">rh42</a>, for better or worse.</span>
-      </div>
     </div>);
 
 }
@@ -1228,6 +1225,11 @@ function App() {
           }
         </div>
       </div>
+      {step === 0 &&
+      <div className="landing-credit">
+        <span>Made by <a href="https://rh42.github.io/" target="_blank" rel="noopener">rh42</a>, for better or worse.</span>
+      </div>
+      }
     </div>);
 
 }

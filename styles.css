@@ -263,7 +263,6 @@ body {
   gap: 12px;
   margin-bottom: 28px;
 }
-.landing-hero-tag::before,
 .landing-hero-tag::after {
   content: "";
   flex: 1;
@@ -282,8 +281,8 @@ body {
   text-wrap: balance;
 }
 .landing-title .em {
-  font-style: italic;
-  color: var(--accent);
+  font-style: normal;
+  color: var(--ink);
 }
 .landing-title .qmark {
   font-family: var(--serif);
@@ -343,7 +342,12 @@ body {
 }
 
 .landing-credit {
-  margin-top: 28px;
+  position: absolute;
+  left: 32px;
+  right: 32px;
+  bottom: 28px;
+  max-width: 720px;
+  margin: 0 auto;
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.18em;
@@ -352,7 +356,7 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  justify-content: center; /* center text in the row */
+  justify-content: flex-start;
 }
 
 .landing-credit a,
@@ -361,7 +365,6 @@ body {
   text-underline-offset: 3px;
 }
 
-.landing-credit::before,
 .landing-credit::after {
   content: "";
   flex: 1;
